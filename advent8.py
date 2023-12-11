@@ -9,41 +9,47 @@ input = lines[0]
 
 print(input)
 
-l1 = lines[2][0:3]
+p2 = []
 
-l2 =lines[2][7:10]
-l3 = lines [2][12:15]
-
-print(l1)
-print(l2)
-print(l3)
+for j in range(2, len(lines)):
+    if lines[j][2] == 'A':
+        p2.append(lines[j][0:3])      
 
 for i in range(2,len(lines)):
     Ldict[lines[i][0:3]]= lines[i][7:10]
     Rdict[lines[i][0:3]]= lines[i][12:15]
 
 step = 0
+steps=0
+p2end=0
+
+while p2end != 6:
+    step+=1
+    p2end=0
+    for i in range(0, len(p2)):
+        if input[step] =="L":
+            left=Ldict[p2[i]]
+            p2[i] = left
+        elif input[step] == "R":
+            right = Rdict[p2[i]]
+            p2[i] = right
+        if p2[i][2] == "Z":
+            p2end+=1
+        if step%269 == 0:
+            steps+=269
+            step=0
+    if p2end >=3:
+        print(p2)
+tot = step+steps
+print(step)
+print(steps)
+print(tot)
+
+step = 0
 steps = 0
-head = "AAA"
-
-test1 = "JST"
-teststep = 1
-for c in input:
-    if c == "L":
-        teststep +=1
-        left = Ldict[test1]
-        test1 = left
-    elif c == "R":
-        teststep+=1
-        right = Rdict[test1]
-        test1 = right
-print("test ended at:" + str(teststep) + ", " + test1)
-
-        
+head = "AAA"      
 
 while head != "ZZZ":
-    if step == 0:
-        print(head +":"+ Ldict[head] +""+ Rdict[head])
     if input[step] == "L":
         step +=1
         left = Ldict[head]
@@ -53,8 +59,7 @@ while head != "ZZZ":
         right = Rdict[head]
         head = right 
     if step%269 ==0:
-       steps+=269
-       print(input[step-5:step])
+       steps+=269    
        step=0
 
 tot = steps + step
