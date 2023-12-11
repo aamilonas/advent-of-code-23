@@ -5,7 +5,7 @@ file = open("av7.txt","r")
 
 lines = file.readlines()
 
-cards = {'2':1,'3':2,'4':3,'5':4,'6':5,'7':6,'8':7,'9':8,'T':9,'J':10,'Q':11,'K':12,'A':13}
+cards = {'2':1,'3':2,'4':3,'5':4,'6':5,'7':6,'8':7,'9':8,'T':9,'J':1,'Q':11,'K':12,'A':13}
 hands = []
 bids = [] 
 ranks=[]
@@ -18,6 +18,21 @@ def strength(hand):
     hand = hand.replace('K', chr(ord('9')+4))
     hand = hand.replace('A', chr(ord('9')+5))
     C= Counter(hand)
+
+    if part2:
+        target = list(C.keys())[0]
+        for k in C:
+            if k!='1':
+                if C[k]> C[target] or target =='1':
+                    target = k
+        assert target != '1' or list(C.keys())==['1']
+        if'1' in C and target !='1':
+            C[target] += C['1']
+            del C['1']
+        assert '1' not in C or list(C.keys()) == ['1'], f'{C} {hand}'
+
+
+
     if list(C.values()) == [5]:
         return (10,hand)
     elif sorted(C.values()) ==[1,4]:
