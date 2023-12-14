@@ -23,8 +23,7 @@ step = 0
 steps=0
 p2end=0
 
-while p2end != 6:
-    step+=1
+while p2end != 6:    
     p2end=0
     for i in range(0, len(p2)):
         if input[step] =="L":
@@ -38,8 +37,10 @@ while p2end != 6:
         if step%269 == 0:
             steps+=269
             step=0
-    if p2end >=3:
+    step+=1
+    if p2end >=4:
         print(p2)
+        print(steps+step)
 tot = step+steps
 print(step)
 print(steps)
